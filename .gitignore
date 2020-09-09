@@ -3,6 +3,8 @@
 .idea
 /.idea
 
+/src/db.json
+
 # dependencies
 /node_modules
 /.pnp
