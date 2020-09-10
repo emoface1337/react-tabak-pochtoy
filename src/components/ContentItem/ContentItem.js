@@ -1,20 +1,21 @@
 import React from 'react'
-
-import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
+import { Card } from 'primereact/card'
 
-const ContentItem = () => {
+const ContentItem = ({ item }) => {
+
+    const { id, name, imageUrl, description, price } = item
+
+
     return (
         <div className="p-col-4">
-            <Card title="Табак Al Fakher - Two Apples (Двойное Яблоко, 50 грамм, Акциз)"
-                  style={{ width: '100%' }}
-                  className="ui-card-shadow items__card" header={<img alt="Card"
-                                                                      src='https://tabak-pochtoy.ru/wa-data/public/shop/products/22/61/16122/images/66210/66210.215.jpg'/>}
-                  footer={<span><Button label="В корзину"/></span>}>
-                <p className="p-m-0">Lorem ipsum dolor sit amet,
-                    consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-                    numquam deserunt</p>
-            </Card>
+            <div className="item__card p-card">
+                <div className="item__card-image"><img src={imageUrl} alt={name}/></div>
+                <div className="item__card-title">{name}</div>
+                <div className="item__card-description">{description}</div>
+                <div className="item__card-price">{price} ₽</div>
+                <div className="item__card-add"><Button label="В корзину"/></div>
+            </div>
         </div>
     )
 }

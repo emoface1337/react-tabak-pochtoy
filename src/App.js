@@ -8,7 +8,7 @@ import Content from './components/Content/Content'
 import Cart from './components/Cart/Cart'
 
 
-function App() {
+const App = () => {
     return (
         <main role="main" className="container">
             <Header/>
