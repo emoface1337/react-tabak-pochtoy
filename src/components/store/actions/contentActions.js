@@ -16,11 +16,23 @@ const loadItemsFailure = error => ({
     payload: error
 })
 
-export const loadItems = () => dispatch => {
+export const loadItems = (selectedBrands, selectedWeights) => dispatch => {
+
+    const brandsStringGenerator = (selectedBrands) => {
+        return selectedBrands.join('&brand=')
+    }
+
+    const weightsStringGenerator = (selectedWeights) => {
+        return selectedWeights.join('&weight=')
+    }
+
     dispatch(loadItemsRequest())
-    axios.get('/tobacco')
-        .then(({ data }) => dispatch(loadItemsSuccess(data)))
-        .catch((error) => dispatch(loadItemsFailure(error)))
+
+    setTimeout(() => {
+        axios.get(`/tobacco?${selectedBrands.length > 0 ? `brand=${brandsStringGenerator(selectedBrands)}` : ''}${selectedWeights.length > 0 ? `&weight=${weightsStringGenerator(selectedWeights)}` : ''}`)
+            .then(({ data }) => dispatch(loadItemsSuccess(data)))
+            .catch((error) => dispatch(loadItemsFailure(error)))
+    }, 500)
 }
 
 

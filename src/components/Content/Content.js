@@ -3,26 +3,41 @@ import Filters from '../Filters/Filters'
 import ContentItems from '../ContentItems/ContentItems'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadItems } from '../store/actions/contentActions'
+import Spinner from '../Spinner/Spinner'
 
-const Content = () => {
+const Content = ({ contentItems, isLoading, error }) => {
+
+    if (error)
+        return <h2>Ошибка</h2>
+
+    if (isLoading)
+        return <Spinner/>
+
+    return (
+        <ContentItems contentItems={contentItems}/>
+    )
+}
+
+const ContentContainer = () => {
 
     const dispatch = useDispatch()
-    const { contentItems, brands, weights } = useSelector(({ contentReducer }) => contentReducer)
+    const { contentItems, isLoading, error } = useSelector(({ contentReducer }) => contentReducer)
+    const { selectedBrands, selectedWeights } = useSelector(({ filterReducer }) => filterReducer)
 
     useEffect(() => {
-        dispatch(loadItems())
-    }, [dispatch])
+        dispatch(loadItems(selectedBrands, selectedWeights))
+    }, [dispatch, selectedBrands, selectedWeights])
 
     return (
         <>
             <div className="p-col-3">
-                <Filters brands={brands} weights={weights}/>
+                <Filters/>
             </div>
             <div className="p-col">
-                <ContentItems contentItems={contentItems}/>
+                <Content contentItems={contentItems} isLoading={isLoading} error={error}/>
             </div>
         </>
     )
 }
 
-export default Content
+export default ContentContainer

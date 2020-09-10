@@ -1,11 +1,9 @@
 import React from 'react'
 import { Button } from 'primereact/button'
-import { Card } from 'primereact/card'
 
 const ContentItem = ({ item }) => {
 
     const { id, name, imageUrl, description, price } = item
-
 
     return (
         <div className="p-col-4">

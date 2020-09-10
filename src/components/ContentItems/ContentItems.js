@@ -8,7 +8,7 @@ const ContentItems = ({ contentItems }) => {
             <div className="p-grid">
                 {
                     contentItems && contentItems.map(item => (
-                        <ContentItem item={item}/>
+                        <ContentItem key={item.id} item={item}/>
                     ))
                 }
             </div>
