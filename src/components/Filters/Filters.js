@@ -1,7 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Checkbox } from 'primereact/checkbox'
 
-const Filters = () => {
+const Filters = ({ brands, weights }) => {
+
+    const [selectedWeightsState, setSelectedWeightsState] = useState([])
+    const [selectedBrandsState, setSelectedBrandsState] = useState([])
+
+    const onWeightChange = e => {
+        let selectedWeights = [...selectedWeightsState]
+        e.checked ? selectedWeights.push(e.value) : selectedWeights.splice(selectedWeights.indexOf(e.value), 1)
+        setSelectedWeightsState(selectedWeights)
+    }
+
+    const onBrandChange = e => {
+        let selectedBrands = [...selectedBrandsState]
+        e.checked ? selectedBrands.push(e.value) : selectedBrands.splice(selectedBrands.indexOf(e.value), 1)
+        setSelectedBrandsState(selectedBrands)
+    }
+
+    const weightsGenerator = (weight) => (
+        <div className="p-field-checkbox">
+            <Checkbox inputId={`weight${weight}`} value={weight} onChange={onWeightChange}
+                      checked={selectedWeightsState.indexOf(`${weight}`) !== -1}/>
+            <label htmlFor={`weight${weight}`}>{weight} грамм</label>
+        </div>
+    )
+
+    const brandsGenerator = (name) => (
+        <div className="p-field-checkbox">
+            <Checkbox inputId={`name${name}`} value={name} onChange={onBrandChange}
+                      checked={selectedBrandsState.indexOf(`${name}`) !== -1}/>
+            <label htmlFor={`name${name}`}>{name}</label>
+        </div>
+    )
+
     return (
         <div className="filters">
             <h4 className="filters__title">
@@ -9,33 +41,19 @@ const Filters = () => {
             </h4>
             <div className="filters__weight">
                 <h5 className="filters__title">Вес продукта (нетто)</h5>
-                <div className="p-field-checkbox">
-                    <Checkbox inputId="weight1" name="city" value="50" checked={false}/>
-                    <label htmlFor="weight1">50 грамм</label>
-                </div>
-                <div className="p-field-checkbox">
-                    <Checkbox inputId="weight2" name="city" value="100" checked={false}/>
-                    <label htmlFor="weight2">100 грамм</label>
-                </div>
-                <div className="p-field-checkbox">
-                    <Checkbox inputId="weight3" name="city" value="250" checked={false}/>
-                    <label htmlFor="weight3">200 грамм</label>
-                </div>
+                {
+                    weights.map(weight => (
+                        weightsGenerator(weight)
+                    ))
+                }
             </div>
             <div className="filters__name">
                 <h5 className="filters__title">Марка</h5>
-                <div className="p-field-checkbox">
-                    <Checkbox inputId="name1" name="city" value="Burn" checked={false}/>
-                    <label htmlFor="name1">Burn</label>
-                </div>
-                <div className="p-field-checkbox">
-                    <Checkbox inputId="name2" name="city" value="Al Fakher" checked={false}/>
-                    <label htmlFor="name2">Al Fakher</label>
-                </div>
-                <div className="p-field-checkbox">
-                    <Checkbox inputId="name3" name="city" value="Spectrum" checked={false}/>
-                    <label htmlFor="name3">Spectrum</label>
-                </div>
+                {
+                    brands.map(brand => (
+                        brandsGenerator(brand)
+                    ))
+                }
             </div>
         </div>
     )

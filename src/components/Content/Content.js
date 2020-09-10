@@ -7,7 +7,7 @@ import { loadItems } from '../store/actions/contentActions'
 const Content = () => {
 
     const dispatch = useDispatch()
-    const { contentItems } = useSelector(({ contentReducer }) => contentReducer)
+    const { contentItems, brands, weights } = useSelector(({ contentReducer }) => contentReducer)
 
     useEffect(() => {
         dispatch(loadItems())
@@ -16,7 +16,7 @@ const Content = () => {
     return (
         <>
             <div className="p-col-3">
-                <Filters/>
+                <Filters brands={brands} weights={weights}/>
             </div>
             <div className="p-col">
                 <ContentItems contentItems={contentItems}/>
