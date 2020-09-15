@@ -18,13 +18,8 @@ const loadItemsFailure = error => ({
 
 export const loadItems = (selectedBrands, selectedWeights) => dispatch => {
 
-    const brandsStringGenerator = (selectedBrands) => {
-        return selectedBrands.join('&brand=')
-    }
-
-    const weightsStringGenerator = (selectedWeights) => {
-        return selectedWeights.join('&weight=')
-    }
+    const brandsStringGenerator = (selectedBrands) => selectedBrands.join('&brand=')
+    const weightsStringGenerator = (selectedWeights) => selectedWeights.join('&weight=')
 
     dispatch(loadItemsRequest())
 

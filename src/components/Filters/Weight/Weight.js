@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Checkbox } from 'primereact/checkbox'
 import { useDispatch } from 'react-redux'
 import { setSelectedWeights } from '../../store/actions/filterActions'
 
-const Weight = ({ weights }) => {
+const Weight = ({ weights, selectedWeights }) => {
 
     const [weightsState, setWeightsState] = useState([])
+
+    useEffect(() => {
+        setWeightsState(selectedWeights)
+    }, [selectedWeights])
 
     const dispatch = useDispatch()
 
@@ -15,7 +19,6 @@ const Weight = ({ weights }) => {
         setWeightsState(selectedWeights)
 
         dispatch(setSelectedWeights(selectedWeights))
-
     }
 
     const weightsGenerator = weight => (

@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Checkbox } from 'primereact/checkbox'
 import { useDispatch } from 'react-redux'
 import { setSelectedBrands } from '../../store/actions/filterActions'
 
-const Brand = ({ brands }) => {
+const Brand = ({ brands, selectedBrands }) => {
 
     const [brandsState, setBrandsState] = useState([])
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setBrandsState(selectedBrands)
+    }, [selectedBrands])
 
     const onBrandChange = e => {
         let selectedBrands = [...brandsState]

@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const initialState = {
     contentItems: [],
     isLoading: true,
@@ -8,7 +10,9 @@ const contentReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'LOAD_ITEMS_SUCCESS': {
-            const items = action.payload
+
+            const items = _.mapKeys(action.payload, 'id')
+
             return {
                 ...state,
                 contentItems: items,

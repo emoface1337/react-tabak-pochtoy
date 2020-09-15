@@ -1,14 +1,22 @@
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { loadItems } from '../store/actions/contentActions'
+
 import Filters from '../Filters/Filters'
 import ContentItems from '../ContentItems/ContentItems'
-import { useDispatch, useSelector } from 'react-redux'
-import { loadItems } from '../store/actions/contentActions'
 import Spinner from '../Spinner/Spinner'
 
 const Content = ({ contentItems, isLoading, error }) => {
 
     if (error)
-        return <h2>Ошибка</h2>
+        return (
+            <div className="p-gird">
+                <div className="p-col p-text-center">
+                    <h2>{error.message}</h2>
+                </div>
+            </div>
+        )
 
     if (isLoading)
         return <Spinner/>
@@ -31,7 +39,7 @@ const ContentContainer = () => {
     return (
         <>
             <div className="p-col-3">
-                <Filters/>
+                <Filters selectedBrands={selectedBrands} selectedWeights={selectedWeights}/>
             </div>
             <div className="p-col">
                 <Content contentItems={contentItems} isLoading={isLoading} error={error}/>

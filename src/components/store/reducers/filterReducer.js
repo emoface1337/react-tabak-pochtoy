@@ -20,6 +20,13 @@ export const filterReducer = (state = initialState, action) => {
                 selectedWeights: action.payload
             }
 
+        case constants.CLEAR_SELECTED_FILTERS:
+            return {
+                ...state,
+                selectedBrands: [],
+                selectedWeights: []
+            }
+
         default:
             return state
     }

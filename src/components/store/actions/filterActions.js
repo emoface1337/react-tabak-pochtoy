@@ -10,3 +10,7 @@ export const setSelectedWeights = weights => ({
     payload: weights
 })
 
+export const clearSelectedFilters = () => ({
+    type: constants.CLEAR_SELECTED_FILTERS
+})
+
