@@ -27,7 +27,7 @@ export const loadItems = (selectedBrands, selectedWeights) => dispatch => {
         axios.get(`/tobacco?${selectedBrands.length > 0 ? `brand=${brandsStringGenerator(selectedBrands)}` : ''}${selectedWeights.length > 0 ? `&weight=${weightsStringGenerator(selectedWeights)}` : ''}`)
             .then(({ data }) => dispatch(loadItemsSuccess(data)))
             .catch((error) => dispatch(loadItemsFailure(error)))
-    }, 500)
+    }, 300)
 }
 
 

@@ -1,8 +1,12 @@
 import React from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
+
+    const totalCount = useSelector(({ cartReducer }) => cartReducer.totalCount)
+
     return (
         <header className="header">
             <div className="p-grid p-align-center">
@@ -19,7 +23,7 @@ const Header = () => {
                     <Link to="/cart">
                             <span className="p-overlay-badge">
                                 <i className="pi pi-shopping-cart" style={{ color: 'white', fontSize: '2em' }}/>
-                                <span className="p-badge">2</span>
+                                <span className="p-badge">{totalCount}</span>
                             </span>
                     </Link>
                 </div>

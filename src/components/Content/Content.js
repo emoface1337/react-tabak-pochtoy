@@ -37,14 +37,16 @@ const ContentContainer = () => {
     }, [dispatch, selectedBrands, selectedWeights])
 
     return (
-        <>
-            <div className="p-col-3">
-                <Filters selectedBrands={selectedBrands} selectedWeights={selectedWeights}/>
+        <section className="content">
+            <div className="p-grid">
+                <div className="p-col-3">
+                    <Filters selectedBrands={selectedBrands} selectedWeights={selectedWeights}/>
+                </div>
+                <div className="p-col">
+                    <Content contentItems={contentItems} isLoading={isLoading} error={error}/>
+                </div>
             </div>
-            <div className="p-col">
-                <Content contentItems={contentItems} isLoading={isLoading} error={error}/>
-            </div>
-        </>
+        </section>
     )
 }
 

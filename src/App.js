@@ -12,14 +12,10 @@ const App = () => {
     return (
         <main role="main" className="container">
             <Header/>
-            <section className="content">
-                <div className="p-grid">
-                    <Switch>
-                        <Route path="/" exact component={Content}/>
-                        <Route path="/cart" exact component={Cart}/>
-                    </Switch>
-                </div>
-            </section>
+            <Switch>
+                <Route path="/" exact component={Content}/>
+                <Route path="/cart" exact component={Cart}/>
+            </Switch>
         </main>
     )
 }
