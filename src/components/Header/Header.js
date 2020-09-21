@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-const Header = () => {
+const Header = memo(() => {
 
-    const totalCount = useSelector(({ cartReducer }) => cartReducer.totalCount)
+    const totalCartCount = useSelector(({ cartReducer }) => cartReducer.totalCartCount)
+    const totalFavCount = useSelector(({ favouriteReducer }) => favouriteReducer.totalFavCount)
 
     return (
         <header className="header">
@@ -19,17 +20,23 @@ const Header = () => {
                             <InputText placeholder="Поиск" className="search__input"/>
                         </span>
                 </div>
-                <div className="p-col-1 p-text-right">
+                <div className="p-col-1 p-d-flex p-justify-between">
+                    <Link to="/favourites">
+                        <span className="p-overlay-badge">
+                                <i className="pi pi-heart" style={{ color: 'black', fontSize: '2em' }}/>
+                                <span className="p-badge">{totalFavCount}</span>
+                        </span>
+                    </Link>
                     <Link to="/cart">
-                            <span className="p-overlay-badge">
-                                <i className="pi pi-shopping-cart" style={{ color: 'white', fontSize: '2em' }}/>
-                                <span className="p-badge">{totalCount}</span>
-                            </span>
+                        <span className="p-overlay-badge">
+                                <i className="pi pi-shopping-cart" style={{ color: 'black', fontSize: '2em' }}/>
+                                <span className="p-badge">{totalCartCount}</span>
+                        </span>
                     </Link>
                 </div>
             </div>
         </header>
     )
-}
+})
 
 export default Header

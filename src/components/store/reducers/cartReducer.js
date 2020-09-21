@@ -3,16 +3,13 @@ import { constants } from '../constants'
 const initialState = {
     cartItems: [],
     totalPrice: 0,
-    totalCount: 0
+    totalCartCount: 0,
 }
 
 const updateCartItems = (id, price, cartItems, quantity) => {
 
     let newItems
     const itemIdx = cartItems.findIndex(item => item.id === id)
-
-    console.log(typeof price)
-    console.log(typeof quantity)
 
     const newItem = {
         ...cartItems[itemIdx],
@@ -28,7 +25,7 @@ const updateCartItems = (id, price, cartItems, quantity) => {
 
     return {
         newItems,
-        totalCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
+        totalCartCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
         totalPrice: newItems.reduce((sum, item) => sum + item.price, 0)
     }
 }
@@ -50,13 +47,13 @@ const cartReducer = (state = initialState, action) => {
                 }
                 newItems = [...state.cartItems.slice(0, itemIdx), newItem, ...state.cartItems.slice(itemIdx + 1)]
             } else {
-                newItems = [...state.cartItems, payloadItem]
+                newItems = [...state.cartItems, { ...payloadItem, quantity: 1 }]
             }
 
             return {
                 ...state,
                 cartItems: newItems,
-                totalCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
+                totalCartCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
                 totalPrice: newItems.reduce((sum, item) => sum + item.price, 0)
             }
         }
@@ -68,27 +65,27 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: newItems,
-                totalCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
+                totalCartCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
                 totalPrice: newItems.reduce((sum, item) => sum + item.price, 0)
             }
         }
 
         case constants.INCREASE_ITEM_CART: {
-            const { newItems, totalCount, totalPrice } = updateCartItems(action.payload.id, +action.payload.price, state.cartItems, +1)
+            const { newItems, totalCartCount, totalPrice } = updateCartItems(action.payload.id, +action.payload.price, state.cartItems, +1)
             return {
                 ...state,
                 cartItems: newItems,
-                totalCount: totalCount,
+                totalCartCount: totalCartCount,
                 totalPrice: totalPrice
             }
         }
 
         case constants.DECREASE_ITEM_CART: {
-            const { newItems, totalCount, totalPrice } = updateCartItems(action.payload.id, -action.payload.price, state.cartItems, -1)
+            const { newItems, totalCartCount, totalPrice } = updateCartItems(action.payload.id, -action.payload.price, state.cartItems, -1)
             return {
                 ...state,
                 cartItems: newItems,
-                totalCount: totalCount,
+                totalCartCount: totalCartCount,
                 totalPrice: totalPrice
             }
         }
@@ -97,7 +94,7 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: [],
-                totalCount: 0,
+                totalCartCount: 0,
                 totalPrice: 0
             }
         }

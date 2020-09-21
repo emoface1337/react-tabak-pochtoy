@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { loadItems } from '../store/actions/contentActions'
@@ -26,7 +26,7 @@ const Content = ({ contentItems, isLoading, error }) => {
     )
 }
 
-const ContentContainer = () => {
+const ContentContainer = memo(() => {
 
     const dispatch = useDispatch()
     const { contentItems, isLoading, error } = useSelector(({ contentReducer }) => contentReducer)
@@ -48,6 +48,6 @@ const ContentContainer = () => {
             </div>
         </section>
     )
-}
+})
 
 export default ContentContainer

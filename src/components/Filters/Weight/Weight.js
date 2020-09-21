@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Checkbox } from 'primereact/checkbox'
 import { useDispatch } from 'react-redux'
 import { setSelectedWeights } from '../../store/actions/filterActions'
 
-const Weight = ({ weights, selectedWeights }) => {
+const Weight = memo(({ weights, selectedWeights }) => {
 
     const [weightsState, setWeightsState] = useState([])
 
@@ -39,6 +39,6 @@ const Weight = ({ weights, selectedWeights }) => {
             }
         </div>
     )
-}
+})
 
 export default Weight

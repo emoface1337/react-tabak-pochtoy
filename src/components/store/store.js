@@ -3,11 +3,13 @@ import thunk from 'redux-thunk'
 import contentReducer from './reducers/contentReducer'
 import cartReducer from './reducers/cartReducer'
 import { filterReducer } from './reducers/filterReducer'
+import { favouritesReducer } from './reducers/favouritesReducer'
 
 const rootReducer = combineReducers({
     contentReducer,
     cartReducer,
-    filterReducer
+    filterReducer,
+    favouriteReducer: favouritesReducer
 })
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose

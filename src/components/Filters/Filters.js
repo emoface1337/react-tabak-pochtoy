@@ -16,8 +16,6 @@ const Filters = memo(({ selectedBrands, selectedWeights }) => {
         dispatch(clearSelectedFilters())
     }
 
-    console.log('filters rendered')
-
     return (
         <div className="filters">
             <h4 className="filters__title">

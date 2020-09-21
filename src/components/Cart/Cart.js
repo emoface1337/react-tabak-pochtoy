@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Rating } from 'primereact/rating'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from 'primereact/button'
 import { clearCart, decreaseItemCart, increaseItemCart, removeItemFromCart } from '../store/actions/cartActions'
+import { Link } from 'react-router-dom'
 
-const Cart = () => {
+import './Cart.sass'
+
+const Cart = memo(() => {
 
     const { cartItems, totalCount, totalPrice } = useSelector(({ cartReducer }) => cartReducer)
     const dispatch = useDispatch()
@@ -27,9 +30,9 @@ const Cart = () => {
         dispatch(decreaseItemCart(id, price))
     }
 
-    const ratingBodyTemplate = (rowData) => <Rating value={rowData.rating} readonly cancel={false}/>
+    const ratingBodyTemplate = rowData => <Rating value={rowData.rating} readonly cancel={false}/>
 
-    const quantityBodyTemplate = (rowData) => (
+    const quantityBodyTemplate = rowData => (
         <div className="p-d-flex p-align-center">
             <Button icon="pi pi-minus" className="p-button-rounded p-button-danger"
                     onClick={() => onDecreaseItem(rowData.id, rowData.price)}/>
@@ -39,10 +42,10 @@ const Cart = () => {
         </div>
     )
 
-    const priceBodyTemplate = (rowData) => (`${rowData.price} ₽`)
+    const priceBodyTemplate = rowData => (`${rowData.price} ₽`)
 
-    const actionBodyTemplate = (rowData) => <Button icon="pi pi-trash" className="p-button-rounded p-button-danger"
-                                                    onClick={() => onItemRemove(rowData.id)}/>
+    const actionBodyTemplate = rowData => <Button icon="pi pi-trash" className="p-button-rounded p-button-danger"
+                                                  onClick={() => onItemRemove(rowData.id)}/>
 
     return (
         <section className="cart">
@@ -53,7 +56,7 @@ const Cart = () => {
                             <>
                                 <div className="cart__header p-d-flex p-justify-between">
                                     <h2>Корзина</h2>
-                                    <Button label="Очистить корзину" icon="pi pi-check"
+                                    <Button label="Очистить корзину" icon="pi pi-times"
                                             className="p-button-text p-button-danger"
                                             onClick={onClearCart}/>
                                 </div>
@@ -73,12 +76,15 @@ const Cart = () => {
                                 </div>
                             </>
                             :
-                            <h2 className="p-text-center">Корзина пуста</h2>
+                            <div className="cart__empty p-text-center">
+                                <h2>Корзина пуста</h2>
+                                <div><Link to="/">На главную</Link></div>
+                            </div>
                     }
                 </div>
             </div>
         </section>
     )
-}
+})
 
 export default Cart

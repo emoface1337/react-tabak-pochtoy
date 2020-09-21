@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Checkbox } from 'primereact/checkbox'
 import { useDispatch } from 'react-redux'
 import { setSelectedBrands } from '../../store/actions/filterActions'
 
-const Brand = ({ brands, selectedBrands }) => {
+const Brand = memo(({ brands, selectedBrands }) => {
 
     const [brandsState, setBrandsState] = useState([])
 
@@ -39,6 +39,6 @@ const Brand = ({ brands, selectedBrands }) => {
             }
         </div>
     )
-}
+})
 
 export default Brand

@@ -1,35 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
+
+import './ContentItem.sass'
+import { Rating } from 'primereact/rating'
 import { Button } from 'primereact/button'
 import { useDispatch } from 'react-redux'
 import { addItemToCart } from '../store/actions/cartActions'
+import { addItemToFavourites } from '../store/actions/favouritesActions'
 
-const ContentItem = ({ item }) => {
+const ContentItem = () => {
+
+    const { id } = useParams()
+    const [item, setCurrentItem] = useState({})
+
+    useEffect(() => {
+        axios.get(`/tobacco/${id}`)
+            .then(({ data }) => setCurrentItem(data))
+    }, [id])
 
     const dispatch = useDispatch()
-    const { id, name, imageUrl, description, price, rating } = item
 
     const onAddItemClick = item => {
         dispatch(addItemToCart(item))
     }
 
+    const onAddToFavClick = item => {
+        dispatch(addItemToFavourites(item))
+    }
+
     return (
-        <div className="p-col-4">
-            <div className="item__card p-card">
-                <div className="item__card-image"><img src={imageUrl} alt={name}/></div>
-                <div className="item__card-title">{name}</div>
-                <div className="item__card-description">{description}</div>
-                <div className="item__card-price">{price} ₽</div>
-                <div className="item__card-add"><Button label="В корзину"
-                                                        onClick={() => onAddItemClick({
-                                                            id,
-                                                            imageUrl,
-                                                            name,
-                                                            price,
-                                                            quantity: 1,
-                                                            rating
-                                                        })}/></div>
+        <section className="content__item">
+            <div className="p-grid">
+                <div className="p-col-4">
+                    <div className="item__image"><img src={item.imageUrl} alt=""/></div>
+                </div>
+                <div className="p-col-8">
+                    <div className="item__info">
+                        <h1 className="item__info-title">{item.name}</h1>
+                        <div className="item__subtitle">
+                            <Rating value={item.rating} readonly cancel={false}/>
+                            <div className="item__subtitle-brand">Бренд: {item.brand}</div>
+                        </div>
+                        <div className="item__description">
+                            {item.description}
+                        </div>
+                        <span className="p-buttonset">
+                            <Button label="В избранное" className="p-button-success"
+                                    onClick={() => onAddToFavClick(item)}/>
+                            <Button label="В корзину" onClick={() => onAddItemClick(item)}/>
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     )
 }
 
