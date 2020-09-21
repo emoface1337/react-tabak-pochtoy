@@ -9,7 +9,6 @@ import Cart from './components/Cart/Cart'
 import ContentItem from './components/ContentItem/ContentItem'
 import Favourites from './components/Favourites/Favourites'
 
-
 const App = () => {
     return (
         <main role="main" className="container">

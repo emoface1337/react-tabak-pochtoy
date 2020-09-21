@@ -33,7 +33,7 @@ const Favourites = () => {
                     {
                         favouriteItems.length !== 0 ?
                             <>
-                                <div className="cart__header p-d-flex p-justify-between">
+                                <div className="favourites__header p-d-flex p-justify-between">
                                     <h2>Избранное</h2>
                                     <Button label="Очистить избранное" icon="pi pi-times"
                                             className="p-button-text p-button-danger"
@@ -49,7 +49,7 @@ const Favourites = () => {
                                 </DataTable>
                             </>
                             :
-                            <div className="cart__empty p-text-center">
+                            <div className="favourites__empty p-text-center">
                                 <h2>Нет избранных товаров</h2>
                                 <div><Link to="/">На главную</Link></div>
                             </div>

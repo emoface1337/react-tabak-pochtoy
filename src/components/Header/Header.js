@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
-import { InputText } from 'primereact/inputtext'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Search from '../Search/Search'
 
 const Header = memo(() => {
 
@@ -15,10 +15,7 @@ const Header = memo(() => {
                     <Link className="header__logo" to="/">Tabak-Pochtoy</Link>
                 </div>
                 <div className="p-col-9">
-                        <span className="p-input-icon-right header__search">
-                            <i className="pi pi-search"/>
-                            <InputText placeholder="Поиск" className="search__input"/>
-                        </span>
+                    <Search/>
                 </div>
                 <div className="p-col-1 p-d-flex p-justify-between">
                     <Link to="/favourites">

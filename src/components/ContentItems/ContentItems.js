@@ -1,6 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
-
 import ContentItemCard from '../ContentItemCard/ContentItemCard'
 
 const ContentItems = ({ contentItems }) => {
@@ -8,7 +6,7 @@ const ContentItems = ({ contentItems }) => {
         <div className="content__items">
             <div className="p-grid">
                 {
-                    contentItems && _.map(contentItems, item => (
+                    contentItems && contentItems.map(item => (
                         <ContentItemCard key={item.id} item={item}/>
                     ))
                 }
